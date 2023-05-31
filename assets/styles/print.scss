@@ -1,0 +1,61 @@
+@import "common/reset";
+//@import "common/colors";
+@import "common/base";
+@import "common/content";
+
+@import "components/site-header";
+@import "components/breadcrumbs";
+@import "components/table-of-contents";
+
+@import "features/headings";
+
+@import "shortcodes/hint";
+@import "shortcodes/ref";
+@import "shortcodes/required-optional-nullable";
+
+@import "layouts/list";
+@import "layouts/single";
+
+#search-form,
+.header-nav,
+.docs-nav,
+.site-footer,
+.edit-link,
+.footnote-backref,
+.heading__anchor-link,
+.section-nav,
+.color-switcher
+{
+	display: none !important;
+}
+.page-header {padding: 0;}
+
+.page abbr[title]::after {
+	content: " (" attr(title) ") ";
+}
+
+a[href^="http"]:after {
+	content: " (" attr(href) ") ";
+}
+
+a.page-ref[href^="http"]:after {
+	content: "";
+}
+
+a.source-ref[href^="http"]:after {
+	content: "";
+}
+
+.source-ref, .page-ref {
+	padding: 0;
+}
+
+.content pre {
+	overflow: unset;
+	white-space: pre-wrap;
+}
+
+.content pre code {
+	inline-size: 100%;
+}
+

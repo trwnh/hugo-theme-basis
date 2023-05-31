@@ -1,0 +1,26 @@
+.breadcrumbs {
+	margin-block-end: 1rem;
+}
+.page-title {
+	font-size: 2em;
+	margin-block-end: 1rem;
+}
+.page-summary {
+	line-height: 1.5;
+	max-inline-size: 80ch;
+	margin-block-end: 1rem;
+}
+.lastmod {
+	margin-block-start: 1rem;
+	line-height: 1.5;
+	color: var(--ui-text-muted);
+	transition:
+		color var(--color-crossfade-duration) var(--color-crossfade-ease);
+}
+.language-list {
+	margin-block-start: 0.5rem;
+	display: flex;
+	flex-flow: wrap;
+	list-style: none;
+	gap: 1em;
+}

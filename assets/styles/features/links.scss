@@ -1,0 +1,42 @@
+a:link {
+	transition: all 0.1s ease-out;
+	color: var(--link-color);
+	text-decoration-thickness: .0625rem;
+	text-underline-offset: 0.125em;
+	text-decoration-skip-ink: none;
+}
+
+a:visited {
+	color: var(--link-visited);
+	transition:
+		color var(--color-crossfade-duration) var(--color-crossfade-ease);
+}
+
+*:focus {
+	outline: 1px dashed;
+	outline-offset: 8px;
+	border-radius: 2px;
+	text-decoration: none;
+}
+
+a:hover {
+	text-decoration-thickness: 0.125em;
+	text-underline-offset: 0.25em;
+}
+
+@media (prefers-reduced-motion) {
+	a:link {transition: none}
+}
+
+a:link[target=_blank] {
+	svg {
+		margin-inline-start: 0.35em;
+		margin-inline-end: 0.15em;
+		vertical-align: baseline;
+		font-size: 0.65em;
+	}
+}
+
+a:link[title] {
+	text-decoration-style: dotted;
+}

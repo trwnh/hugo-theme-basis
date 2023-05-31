@@ -1,0 +1,49 @@
+@import "common/mixins.scss";
+
+.section-nav {
+	.buttons {
+		display: grid;
+		grid-gap: 1em;
+	}
+	a {
+		border-radius: 0.25rem;
+		display: flex;
+		padding: 1em;
+		gap: 1em;
+		text-decoration: none;
+		background: var(--ui-overlay);
+		transition:
+			background var(--color-crossfade-duration) var(--color-crossfade-ease),
+			color var(--color-crossfade-duration) var(--color-crossfade-ease);
+		@include shadow-short;
+		&:focus {
+			padding: 1em;
+			border: none;
+		}
+	}
+	a:link, a:visited {
+		color: var(--ui-overlay-text);
+	}
+	.previous {
+		justify-content: start;
+	}
+	.next {
+		justify-content: space-between;
+	}
+	.arrow {
+		text-decoration: none;
+		color: inherit;
+		display: grid;
+		place-items: center;
+		font-size: 2em;
+	}
+	@media (min-width: 30rem) {
+		.buttons {
+			grid-template-columns: 1fr 1fr;
+		}
+		.next {
+			grid-column: 2;
+		}
+	}
+	margin-block-end: 2em;
+}

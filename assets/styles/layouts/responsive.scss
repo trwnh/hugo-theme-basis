@@ -1,0 +1,183 @@
+.page > * > .container
+{
+	display: grid;
+	grid-template-columns: minmax(0, 1fr) minmax(0, 80ch) minmax(0, 1fr);
+	max-width: 120ch;
+	> * {
+		grid-column: 2;
+	}
+	> img, figure
+	{
+		grid-column: 1 / span 3;
+	}
+}
+
+/* [responsive] more room to breathe above mobile sizes */
+
+@media (min-width: 30rem) {
+	.container {
+		padding: 0 2em;
+	}
+}
+
+/* [responsive] re-show the navigation menu as a sidebar */
+
+@media (min-width: 60rem) {
+	body {
+		display: grid;
+		grid-template-columns: var(--sidebar-width) 1fr;
+		grid-template-rows: auto 0 1fr auto;
+		height: calc(100 * var(--vh, 1vh));
+	}
+	.site-header, .scroll-margin, .site-footer {
+		grid-column: span 2
+	}
+
+	.docs-nav {
+		grid-column: 1;
+		overflow-y: auto;
+		padding: 0;
+		min-width: 20rem;
+	}
+
+	main {
+		grid-column: 2;
+		overflow-y: auto;
+		scrollbar-width: none;
+	}
+	.docs-nav::-webkit-scrollbar,
+	main::-webkit-scrollbar {
+		display: none;
+	}
+
+	.docs-nav .menu {
+		margin-top: 0;
+	}
+
+	.page-header {
+		padding: 0;
+	}
+ 
+	/* toggle is no longer needed */
+
+	.toggle-menu {
+		display: none;
+	}
+	
+	.toggle-menu:not(:checked) ~ .menu {
+		display: flex;
+	}
+	.toggle-menu__label {
+		display: none;
+	}
+
+	.docs-nav, .page-header {padding: 2rem 0;}
+
+}
+
+/* [responsive] move the toc to its own column */
+
+@media (min-width: 90rem) {
+	body {
+		grid-template-columns: var(--sidebar-width) 1fr;
+	}
+	.page {
+		display: grid;
+		grid-template-columns: 1fr minmax(auto,20rem);
+	}
+	.page-header,
+	.content,
+	.section-nav,
+	.page-footer
+	{
+		grid-column: 1;
+	}
+	.toc {
+		grid-column: 2;
+		grid-row: span 4;
+		padding: 0;
+	}
+	.page .toc .container {
+		margin: 0;
+		position: sticky;
+		top: 2rem;
+		overflow-y: auto;
+	}
+
+	/* start limiting content since it can exceed 80ch now */
+
+	.content .container
+	{
+		display: grid;
+		grid-template-columns: minmax(0, 1fr) minmax(0, 80ch) minmax(0, 1fr);
+		> * {
+			grid-column: 2;
+		}
+		> img
+		{
+			grid-column: 1 / span 3;
+		}
+	}
+
+	.page-header,
+	.list,
+	.section-nav,
+	.page-footer
+	{
+		display: grid;
+		grid-template-columns: minmax(0, 1fr) minmax(0, 80ch) minmax(0, 1fr);
+		padding: 0 2rem;
+		> .container {
+			grid-column: 2;
+			padding: 0;
+		}
+	}
+
+	.page-header {
+		padding-block-start: 2rem;
+	}
+	.page-footer {
+		padding-block-end: 1rem;
+	}
+
+}
+
+
+/* [responsive] fixed layout after reaching maxwidth */
+
+@media (min-width: $site-max-width) {
+
+	body {
+		grid-template-columns: 1fr var(--sidebar-width) calc(var(--site-max-width) - var(--sidebar-width)) 1fr
+	}
+
+	.docs-nav {grid-column: 2;}
+	main {grid-column: 3;}
+	.site-header,
+	.site-footer,
+	.scroll-margin
+	{
+		grid-column: 1 / span 4;
+	}
+
+	/* except now the page is fixed to maxwidth and the toc can "grow" */
+
+	.page {
+		grid-template-columns: 1fr var(--sidebar-width);
+	}
+
+	/* we don't actually want it to grow, though! just stick to the side */
+
+	.page {position: relative;}
+	.page .toc {
+		position: sticky;
+		top: 0;
+	}
+
+	/* also the menu sidebar should stick to the other side */
+	.docs-nav {
+		position: sticky;
+		width: 20rem;
+	}
+
+}

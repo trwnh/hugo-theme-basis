@@ -1,0 +1,38 @@
+{{ define "main" }}
+<main>
+	<article class="page" {{- if .Param "autonumbering" }} autonumbering {{- end }}>
+		<header class="section page-header">
+			<div class="container">
+				<h1 class="page-title">{{ .Title }}</h1>
+				<p class="page-summary">{{.Page.Summary | plainify}}</p>
+				
+				<p class="lastmod">Last modified <datetime class="date">{{ .Lastmod.Format "Mon Jan 2, 2006" }}</datetime>
+					{{ partial "edit-link.html" . }}
+				</p>
+
+				{{ partial "i18nlist.html" . }}
+			</div>
+		</header>
+		<aside class="toc section">
+			<div class="container">
+				{{ partial "breadcrumbs.html" . }}
+				<details open>
+					<summary class="toc-title">Page outline</summary>
+					{{ .TableOfContents }}
+				</details>
+			</div>
+		</aside>
+		<section class="content section">
+			<div class="container">
+				{{ .Content }}
+			</div>
+		</section>
+		{{ partial "nav-section.html" . }}
+		<footer class="section page-footer">
+			<div class="container">
+				{{ partial "page-footer.html" . }}
+			</div>
+		</footer>
+	</article>
+</main>
+{{ end }}

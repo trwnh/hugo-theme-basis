@@ -1,0 +1,12 @@
+name = "basis"
+license = "GPLv3"
+licenselink = "https://github.com/trwnh/hugo-theme-basis/blob/main/LICENSE"
+summary = "A foundation for my other themes."
+homepage = "http://github.com/trwnh/hugo-theme-basis"
+tags = ["template", "basic"]
+features = []
+min_version = "0.41.0"
+
+[author]
+  name = "a <a@trwnh.com>"
+  homepage = "https://trwnh.com"

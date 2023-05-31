@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="{{.Site.Language.Lang }}" xml:lang="{{.Site.Language.Lang }}">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+
+{{- /* print layout */ -}}
+{{- $print := resources.Get "styles/print.scss" | toCSS | minify | fingerprint }}
+<link rel="stylesheet"
+	href="{{ $print.Permalink }}"
+	integrity="{{ $print.Data.Integrity }}"
+	media="print" />
+
+{{- /* web layout */ -}}
+{{- $theme := resources.Get "styles/screen.scss" | toCSS }}
+{{- with resources.Get "styles/custom.scss" }}
+{{- $custom := . | toCSS }}
+{{- $screen := slice $theme $custom | resources.Concat "assets/screen.css" | minify | fingerprint }}
+<link rel="stylesheet"
+	href="{{ $screen.Permalink }}"
+	integrity="{{ $screen.Data.Integrity }}"
+	media="screen" />
+{{- else }}
+{{- $screen := $theme | minify | fingerprint }}
+<link rel="stylesheet"
+	href="{{ $screen.Permalink }}"
+	integrity="{{ $screen.Data.Integrity }}"
+	media="screen" />
+{{- end }}
+
+{{- /* scripts */ -}}
+{{- $theme := resources.Get "scripts/main.js" | js.Build "script.js" | minify | fingerprint }}
+{{ with resources.Get "scripts/custom.js" }}
+{{ $custom := . }}
+{{ $script := slice $theme $custom | resources.Concat "assets/main.js" | js.Build "script.js" | minify | fingerprint}}
+<script type="text/javascript"
+	src="{{ $script.Permalink }}"
+	integrity="{{ $script.Data.Integrity }}">
+</script>
+{{ else }}
+{{ $script := $theme | js.Build "script.js" | minify | fingerprint}}
+<script type="text/javascript"
+	src="{{ $script.Permalink }}"
+	integrity="{{ $script.Data.Integrity }}">
+</script>
+{{ end }}
+
+{{/* optional features */ -}}
+{{ partial "styles/external-links.html" . }}
+
+{{ if .Site.Params.borders }}
+{{ partial "styles/borders.html" . }}
+{{ end -}}
+
+{{ partial "seo.html" . -}}
+{{- block "head" . -}}
+{{ end }}
+</head>
+<body>
+{{ partial "site-header.html" . }}
+{{ block "main" . }}
+{{ end }}
+{{ partial "site-footer.html" . }}
+</body>
+</html>

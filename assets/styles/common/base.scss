@@ -1,0 +1,54 @@
+$site-max-width: 120rem;
+$sidebar-width: 20rem;
+
+:root {
+	--site-max-width: #{$site-max-width};
+	--sidebar-width: #{$sidebar-width};
+
+	--color-crossfade-duration: 0.25s;
+	--color-crossfade-ease: ease;
+}
+
+html {
+	font-family: sans-serif;
+	scroll-behavior: smooth;
+	text-rendering: optimizeLegibility;
+}
+
+body {
+	background: var(--ui-background);
+	color: var(--ui-text);
+	transition:
+		background var(--color-crossfade-duration) var(--color-crossfade-ease),
+		color var(--color-crossfade-duration) var(--color-crossfade-ease);
+}
+
+/* Single column layout, where main content stretches to fill. */
+body {
+	display: flex;
+	flex-flow: column;
+	min-height: calc(var(--vh, 1vh) * 100);
+	max-width: 100vw;
+	margin: auto;
+}
+main {flex-grow: 1;}
+
+/*
+Sections are primary block units, usually of type <section>.
+Containers are an immediate child <div>, purely for constraining width.
+*/
+.section {
+	padding: 2em 0; /* we apply a vertical padding only to sections */
+}
+.container {
+	width: 100%;
+	max-width: var(--site-max-width);
+	margin: 0 auto;
+	padding: 0 1em; /* and we apply a horizontal padding only to containers */
+}
+
+/* Ensure consistent colors for text selection */
+::selection {
+	background: var(--primary-accent);
+	color: var(--primary-accent-text);
+}

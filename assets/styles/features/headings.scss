@@ -1,0 +1,80 @@
+h2.heading {
+	padding-block-end: 1rem;
+	border-block-end: 1px solid var(--ui-text-muted);
+}
+
+/* headings with no numbers */
+
+article:not([autonumbering]) .heading {
+	position: relative;
+	margin-inline-end: 2.5rem;
+	&__anchor-link {
+		display: inline-flex;
+		align-content: center;
+		margin-inline-start: 0.25em;
+		position: absolute;
+		inset-inline-end: -2.5rem;
+		inset-block-start: 3px;
+		font-size: 1rem;
+	}
+}
+
+/* headings with autonumbering support */
+
+body {counter-reset: h2}
+h2 {counter-reset: h3}
+h3 {counter-reset: h4}
+h4 {counter-reset: h5}
+
+article[autonumbering] {
+	h2:before {
+		counter-increment: h2;
+		content: counter(h2) " ";
+	}
+	h3:before {
+		counter-increment: h3;
+		content: counter(h2) "." counter(h3) " ";
+	}
+	h4:before {
+		counter-increment: h4;
+		content: counter(h2) "." counter(h3) "." counter(h4) " ";
+	}
+	h2:before,
+	h3:before,
+	h4:before
+	{
+		margin-inline-end: 1em;
+		font-family: monospace;
+		font-size: 1rem;
+	}
+
+	.heading {
+		display: grid;
+		grid-template-columns: 1fr auto;
+		grid-template-rows: auto auto;
+		gap: 0.5rem;
+		&__text {
+			grid-column: span 2;
+		}
+		&__anchor-link {
+			font-size: 1rem;
+			grid-column: 2;
+			grid-row: 1;
+			justify-self: end;
+		}
+	}
+
+	#TableOfContents :is(ol, ul) {
+		counter-reset: item;
+	}
+	#TableOfContents li:before {
+		content: counters(item, ".") ". ";
+		counter-increment: item;
+		font-family: monospace;
+	}
+	#TableOfContents ol ol,
+	#TableOfContents ul ul
+	{
+		margin-inline-start: 0;
+	}
+}
