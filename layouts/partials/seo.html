@@ -2,14 +2,11 @@
 <title itemprop="name">{{ .Title }} • {{ .Site.Title }}</title>
 <meta property="og:title" content="{{ .Title }}" />
 <meta name="twitter:title" content="{{ .Title }}" />
-<meta name="application-name" content="{{ .Site.Title }}" />
-<meta property="og:site_name" content="{{ .Site.Title }}" />
+<meta name="application-name" property="og:site_name" content="{{ .Site.Title }}" />
 
 {{- with or .Description .Summary .Site.Params.description }}
 {{ "<!-- description -->" | safeHTML }}
-<meta name="description" content="{{.}}">
-<meta itemprop="description" content="{{.}}" />
-<meta property="og:description" content="{{.}}" />
+<meta name="description" itemprop="description" property="og:description" content="{{.}}">
 <meta name="twitter:description" content="{{.}}" />
 {{ end -}}
 {{ "<!-- url -->" | safeHTML }}
@@ -22,7 +19,7 @@
 {{- $cover := ($.Resources.ByType "image").GetMatch "{*cover*,*thumbnail*,*featured*}" -}}
 {{ $icon := resources.GetMatch (default "" .Site.Params.icon) -}}
 {{- $staticIcon := "icon.png" | absURL -}}
-{{- with or .Params.cover $cover $icon }}
+{{- with or $cover $icon }}
 {{ "<!-- image -->" | safeHTML }}
 <meta itemprop="image" content='{{ .Permalink | absURL }}' />
 <meta property="og:image" content='{{ .Permalink | absURL }}' />
@@ -89,7 +86,7 @@
 		"dateModified": "{{ .Lastmod.Format "2006-01-02" }}",
 		"image": {
 			"@type": "imageObject",
-			"url": "{{ with or .Params.cover $cover $icon }}{{ .Permalink | absURL }}{{ end }}"
+			"url": "{{ with or $cover $icon }}{{ .Permalink | absURL }}{{ end }}"
 		},
 		"publisher": {
 			"@type": "Person",

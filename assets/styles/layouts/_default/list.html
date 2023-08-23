@@ -1,0 +1,24 @@
+{{ define "main" }}
+<main>
+	<header>
+		<div class="container">{{.Title}}</div>
+	</header>
+	<section>
+		<div class="container">
+			{{.Content}}
+		</div>
+	</section>
+	{{ range .Pages.ByDate }}
+		<article class="timeline-item {{ .Permalink | relURL | anchorize }}">
+		<h3 class="timeline-item__title">{{ .Params.position }}</h3>
+		<p class="timeline-item__summary">{{.Summary}}</p>
+		<span class="timeline-item__daterange">
+			<datetime class="timeline-item__date">{{ .Params.start }}</datetime> – <datetime class="timeline-item__date">{{ .Params.end }}</datetime>
+		</span>
+		<span class="timeline-item__at">at {{ .Params.at }}</span>
+		<a class="timeline-item__readmore button primary" href="{{ .Permalink }}">Read more...</a>
+	</article>
+	{{ end }}
+
+</main>
+{{ end }}

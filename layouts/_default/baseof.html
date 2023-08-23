@@ -30,6 +30,13 @@
 	media="screen" />
 {{- end }}
 
+{{/*  {{- with .Resources.GetMatch "style.scss" }}
+{{ $page := . | toCSS | minify | fingerprint }}
+<link rel="stylesheet"
+	href="{{ $page.Permalink }}"
+	integrity="{{ $page.Data.Integrity }}" />
+{{- end }}  */}}
+
 {{- /* scripts */ -}}
 {{- $theme := resources.Get "scripts/main.js" | js.Build "script.js" | minify | fingerprint }}
 {{ with resources.Get "scripts/custom.js" }}

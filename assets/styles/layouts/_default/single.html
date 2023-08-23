@@ -1,0 +1,15 @@
+{{ define "head" }}
+{{- with .Resources.GetMatch "style.scss" }}
+{{ $page := . | toCSS }}
+<link rel="stylesheet"
+	href="{{ $page.Permalink }}" />
+{{- end }}
+{{- with .Resources.GetMatch "style.css" }}
+<link rel="stylesheet"
+	href="{{ .Permalink }}" />
+{{- end }}
+{{ end }}
+
+{{ define "main" }}
+{{ .Content }}
+{{ end }}
